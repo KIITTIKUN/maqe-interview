@@ -40,7 +40,6 @@ function maqe(control) {
     direction = '';
 
   const matchQuadraL = /LLLL/g;
-  const matchEmail = /\S+@\w+.com/g;
 
   //preparewastecontrol By Regular Expression
   let prepareControl = control
