@@ -31,10 +31,6 @@ const assignMaqeBotByValue = (value, index) => {
     }
 }
 
-// maqe('RRRLLLLRRRRR') // ''
-// maqe('LLLRRRRLLLLL') // ''
-
-
 function maqe(control){
     //assign valiables degree, x , y
     let deg = 0, x = 0, y = 0, direction = '';
