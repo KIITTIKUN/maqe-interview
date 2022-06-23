@@ -1,0 +1,55 @@
+.container{
+    width: 1000px;
+    height: 200px;
+    background-color: none;
+}
+.stick{
+    width: 800px;
+    height: 16px;
+    background-color: rgb(59, 68, 85);
+    border-radius: 6px;
+    position: relative;
+    top: 100px;
+    left: 100px;
+    box-shadow: 5px -2px 20px black;
+    display: flex;
+}
+.circle{
+    width: 150px;
+    height: 150px; 
+    background: linear-gradient(0deg,RGB(158, 211, 209),RGB(148, 209, 212),RGB(139, 206, 217),RGB(132, 204, 219),RGB(122, 201, 224),RGB(107, 195, 231)); 
+    border-radius: 50%;
+    position: relative;
+    top: -70px;
+    left: 20px;
+    margin: 2px;
+    box-shadow: 5px -2px 15px rgb(14, 13, 13);
+}
+.circle-border{
+    width: 80%;
+    height: 80%; 
+    border-radius: 50%;
+    position: relative;
+    margin: auto;
+    top: 5%;
+    background-color: none;
+    border-style: solid;
+    border-width: 8px;
+    border-color: aliceblue;
+}
+.item{
+    font-family: "Arial";
+    font-size: 70px;
+    font-weight: bold;
+    color: white;
+    position: relative;
+    top: 15%;
+    left: 25%;
+    margin: auto;
+    text-shadow: 1px -1px 5px rgb(14, 13, 13);  
+}
+.rotate-item{
+    top: -5% !important;
+    left: -15%;
+    transform: rotate(-130deg);
+}
