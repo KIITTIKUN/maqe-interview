@@ -12,6 +12,16 @@ const matchUnnecessary = {
   controlLR: /LR/g,
 };
 
+const cutNullString = (control, index, process) => {
+  return control === '' ? process.splice(index, 1) : process.splice(index, 0);
+};
+
+const buildArrayForBot = (string) => {
+  let arrayControlBot = string.split(/(\D)/);
+  arrayControlBot.forEach(cutNullString);
+  return arrayControlBot;
+};
+
 function maqeBot(control) {
   let degrees = 0,
     x = 0,
@@ -24,21 +34,17 @@ function maqeBot(control) {
     .replace(matchUnnecessary.controlRL, '')
     .replace(matchUnnecessary.controlLR, '');
 
-  const process = prepareControl.split(/(\D)/);
+  const processBot = buildArrayForBot(prepareControl);
 
-  process.forEach(function (control, index, process) {
-    control === '' ? process.splice(index, 1) : process.splice(index, 0);
-  });
-
-  for (let index = 0; index < process.length; index++) {
-    let currentDirection = process[index];
+  for (let index = 0; index < processBot.length; index++) {
+    let currentDirection = processBot[index];
     if (currentDirection === 'R') {
       degrees += 90;
     } else if (currentDirection === 'L') {
       degrees -= 90;
     } else if (currentDirection === 'W') {
       index++;
-      currentDirection = process[index];
+      currentDirection = processBot[index];
       if (degrees % 360 === 90 || degrees % 360 === -270) {
         x += Number(currentDirection);
         direction = 'East';
