@@ -28,6 +28,28 @@ const currentControl = {
   goStraight: 'W',
 };
 
+const isGoStraightEast = (degrees) => {
+  return degrees % 360 === 90 || degrees % 360 === -270;
+};
+
+const isGoStraightSouth = (degrees) => {
+  return degrees % 360 === 180 || degrees % 360 === -180;
+};
+
+const isGoStraightWest = (degrees) => {
+  return degrees % 360 === 180 || degrees % 360 === -180;
+};
+
+const isTurnRight = (control) => {
+  return control === currentControl.turnRight;
+};
+const isTurnLeft = (control) => {
+  return control === currentControl.turnLeft;
+};
+const isGoStraight = (control) => {
+  return control === currentControl.goStraight;
+};
+
 function maqeBot(control) {
   let degrees = 0,
     x = 0,
@@ -43,51 +65,23 @@ function maqeBot(control) {
   const processBot = buildArrayForBot(prepareControl);
 
   processBot.forEach(function (control) {
-    if (control === currentControl.turnRight) {
+    if (isTurnRight(control)) {
       degrees += 90;
-    } else if (control === currentControl.turnLeft) {
+    } else if (isTurnLeft(control)) {
       degrees -= 90;
-    } else if (control === currentControl.goStraight) {
+    } else if (isGoStraight(control)) {
     } else {
-      if (degrees % 360 === 90 || degrees % 360 === -270) {
+      if (isGoStraightEast(degrees)) {
         x += Number(control);
-        direction = 'East';
-      } else if (degrees % 360 === 180 || degrees % 360 === -180) {
+      } else if (isGoStraightSouth) {
         y -= Number(control);
-        direction = 'South';
-      } else if (degrees % 360 === 270 || degrees % 360 === -90) {
+      } else if (isGoStraightWest) {
         x -= Number(control);
-        direction = 'West';
       } else {
         y += Number(control);
-        direction = 'North';
       }
     }
   });
-  //   for (let index = 0; index < processBot.length; index++) {
-  //     let currentDirection = processBot[index];
-  //     if (currentDirection === 'R') {
-  //       degrees += 90;
-  //     } else if (currentDirection === 'L') {
-  //       degrees -= 90;
-  //     } else if (currentDirection === 'W') {
-  //       continue;
-  //     } else {
-  //       if (degrees % 360 === 90 || degrees % 360 === -270) {
-  //         x += Number(currentDirection);
-  //         direction = 'East';
-  //       } else if (degrees % 360 === 180 || degrees % 360 === -180) {
-  //         y -= Number(currentDirection);
-  //         direction = 'South';
-  //       } else if (degrees % 360 === 270 || degrees % 360 === -90) {
-  //         x -= Number(currentDirection);
-  //         direction = 'West';
-  //       } else {
-  //         y += Number(currentDirection);
-  //         direction = 'North';
-  //       }
-  //     }
-  //   }
 
   return {
     x: x,
