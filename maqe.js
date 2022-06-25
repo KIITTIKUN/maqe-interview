@@ -21,16 +21,16 @@ const currentControl = {
   goStraight: 'W',
 };
 
-const isGoStraightEast = (degrees) => {
+const isEast = (degrees) => {
   return degrees % 360 === 90 || degrees % 360 === -270;
 };
 
-const isGoStraightSouth = (degrees) => {
+const isSouth = (degrees) => {
   return degrees % 360 === 180 || degrees % 360 === -180;
 };
 
-const isGoStraightWest = (degrees) => {
-  return degrees % 360 === 180 || degrees % 360 === -180;
+const isWest = (degrees) => {
+  return degrees % 360 === 270 || degrees % 360 === -90;
 };
 
 const isTurnRight = (control) => {
@@ -64,17 +64,24 @@ function maqeBot(control) {
       degrees -= 90;
     } else if (isGoStraight(control)) {
     } else {
-      if (isGoStraightEast(degrees)) {
+      if (isEast(degrees)) {
         x += Number(control);
-      } else if (isGoStraightSouth) {
+      } else if (isSouth(degrees)) {
         y -= Number(control);
-      } else if (isGoStraightWest) {
+      } else if (isWest(degrees)) {
         x -= Number(control);
       } else {
         y += Number(control);
       }
     }
   });
+  isEast(degrees)
+    ? (direction = 'East')
+    : isSouth(degrees)
+    ? (direction = 'South')
+    : isWest(degrees)
+    ? (direction = 'West')
+    : (direction = 'North');
 
   return {
     x: x,
@@ -84,3 +91,5 @@ function maqeBot(control) {
 }
 
 console.log(maqeBot('RW15RW1R'));
+console.log(maqeBot('RW10RW10'));
+console.log(maqeBot('RW15RW1'));
