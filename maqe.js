@@ -5,6 +5,14 @@ const matchUnnecessary = {
   controlLR: /LR/g,
 };
 
+const reduceControl = (control) => {
+  return control
+    .replace(matchUnnecessary.quadraL, '')
+    .replace(matchUnnecessary.quadraR, '')
+    .replace(matchUnnecessary.controlRL, '')
+    .replace(matchUnnecessary.controlLR, '');
+};
+
 const cutNullString = (control, index, process) => {
   return control === '' ? process.splice(index, 1) : process.splice(index, 0);
 };
@@ -49,12 +57,7 @@ function maqeBot(control) {
     y = 0,
     direction = '';
 
-  let prepareControl = control
-    .replace(matchUnnecessary.quadraL, '')
-    .replace(matchUnnecessary.quadraR, '')
-    .replace(matchUnnecessary.controlRL, '')
-    .replace(matchUnnecessary.controlLR, '');
-
+  let prepareControl = reduceControl(control);
   const processBot = buildArrayForBot(prepareControl);
 
   processBot.forEach(function (control) {
@@ -93,3 +96,4 @@ function maqeBot(control) {
 console.log(maqeBot('RW15RW1R'));
 console.log(maqeBot('RW10RW10'));
 console.log(maqeBot('RW15RW1'));
+console.log(maqeBot('LLLRLRRRLRLLRLLL'));
