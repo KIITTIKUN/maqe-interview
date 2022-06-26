@@ -5,12 +5,23 @@ const matchUnnecessary = {
   controlLR: /LR/g,
 };
 
+const reduceControlRecursive = (input) => {
+  let output;
+  while (true) {
+    output = reduceControl(input);
+    if (output === input) break;
+    input = output;
+  }
+
+  return output;
+};
+
 const reduceControl = (control) => {
   return control
-    .replace(matchUnnecessary.controlLR, '')
-    .replace(matchUnnecessary.controlRL, '')
-    .replace(matchUnnecessary.quadraL, '')
-    .replace(matchUnnecessary.quadraR, '');
+    .replace(/LR/g, '')
+    .replace(/RL/g, '')
+    .replace(/LLLL/g, '')
+    .replace(/RRRR/g, '');
 };
 
 const cutNullString = (control, index, process) => {
@@ -66,7 +77,7 @@ function maqeBot(control) {
     y = 0,
     direction = '';
 
-  let prepareControl = reduceControl(control);
+  let prepareControl = reduceControlRecursive(control);
   const processBot = buildArrayForBot(prepareControl);
   processBot.forEach(function (control) {
     if (isTurnRight(control)) {
@@ -95,4 +106,4 @@ function maqeBot(control) {
 }
 
 console.log(maqeBot('RW15RW1R'));
-console.log(maqeBot('LLLRLRRRLRLLRLLL'));
+console.log(maqeBot('LLLRLRRRLRLLRLLLW'));
