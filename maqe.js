@@ -18,10 +18,10 @@ const reduceControlRecursive = (input) => {
 
 const reduceControl = (control) => {
   return control
-    .replace(/LR/g, '')
-    .replace(/RL/g, '')
-    .replace(/LLLL/g, '')
-    .replace(/RRRR/g, '');
+    .replace(matchUnnecessary.controlLR, '')
+    .replace(matchUnnecessary.controlRL, '')
+    .replace(matchUnnecessary.quadraL, '')
+    .replace(matchUnnecessary.quadraR, '');
 };
 
 const cutNullString = (control, index, process) => {
