@@ -7,10 +7,10 @@ const matchUnnecessary = {
 
 const reduceControl = (control) => {
   return control
-    .replace(matchUnnecessary.quadraL, '')
-    .replace(matchUnnecessary.quadraR, '')
+    .replace(matchUnnecessary.controlLR, '')
     .replace(matchUnnecessary.controlRL, '')
-    .replace(matchUnnecessary.controlLR, '');
+    .replace(matchUnnecessary.quadraL, '')
+    .replace(matchUnnecessary.quadraR, '');
 };
 
 const cutNullString = (control, index, process) => {
@@ -51,6 +51,15 @@ const isGoStraight = (control) => {
   return control === currentControl.goStraight;
 };
 
+const checkFinalDirectionByDegrees = (degrees) => {
+  return isEast(degrees)
+    ? 'East'
+    : isSouth(degrees)
+    ? 'South'
+    : isWest(degrees)
+    ? 'West'
+    : 'North';
+};
 function maqeBot(control) {
   let degrees = 0,
     x = 0,
@@ -59,7 +68,6 @@ function maqeBot(control) {
 
   let prepareControl = reduceControl(control);
   const processBot = buildArrayForBot(prepareControl);
-
   processBot.forEach(function (control) {
     if (isTurnRight(control)) {
       degrees += 90;
@@ -78,14 +86,7 @@ function maqeBot(control) {
       }
     }
   });
-  isEast(degrees)
-    ? (direction = 'East')
-    : isSouth(degrees)
-    ? (direction = 'South')
-    : isWest(degrees)
-    ? (direction = 'West')
-    : (direction = 'North');
-
+  direction = checkFinalDirectionByDegrees(degrees);
   return {
     x: x,
     y: y,
@@ -94,6 +95,4 @@ function maqeBot(control) {
 }
 
 console.log(maqeBot('RW15RW1R'));
-console.log(maqeBot('RW10RW10'));
-console.log(maqeBot('RW15RW1'));
 console.log(maqeBot('LLLRLRRRLRLLRLLL'));
